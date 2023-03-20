@@ -1,0 +1,52 @@
+{
+  "name": "react-spa-movie-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.26.1",
+    "clsx": "^1.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0",
+    "tiny-invariant": "^1.3.1"
+  },
+  "devDependencies": {
+    "@total-typescript/ts-reset": "^0.3.7",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.13",
+    "eslint-config-wesbos": "^3.2.3",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "tailwindcss": "^3.2.7",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "wesbos/typescript"
+    ],
+    "rules": {
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          "prefer": "type-imports",
+          "disallowTypeAnnotations": true
+        }
+      ]
+    }
+  }
+}
