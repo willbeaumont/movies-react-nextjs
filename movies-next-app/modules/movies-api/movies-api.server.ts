@@ -1,11 +1,11 @@
-import invariant from 'tiny-invariant';
+import invariant from "tiny-invariant";
 
-const baseUrl = 'https://api.themoviedb.org/3';
+const baseUrl = "https://api.themoviedb.org/3";
 
 const envApiKey: unknown = import.meta.env.VITE_MOVIES_API_KEY;
 invariant(
-  envApiKey && typeof envApiKey === 'string',
-  'VITE_MOVIES_API_KEY key is required'
+  envApiKey && typeof envApiKey === "string",
+  "VITE_MOVIES_API_KEY key is required"
 );
 const apiKey: string = envApiKey;
 
@@ -18,9 +18,9 @@ type ErrorResponse = {
 function isErrorResponse(data: unknown): data is ErrorResponse {
   return (
     !!data &&
-    typeof data === 'object' &&
-    'status_code' in data &&
-    'status_message' in data
+    typeof data === "object" &&
+    "status_code" in data &&
+    "status_message" in data
   );
 }
 
@@ -51,17 +51,17 @@ type MoviesData = {
 function isMoviesData(data: unknown): data is MoviesData {
   return (
     !!data &&
-    typeof data === 'object' &&
-    'results' in data &&
+    typeof data === "object" &&
+    "results" in data &&
     Array.isArray(data.results)
   );
 }
 
-export type Endpoint = 'popular' | 'top_rated' | 'upcoming' | 'now_playing';
+export type Endpoint = "popular" | "top_rated" | "upcoming" | "now_playing";
 
 export async function fetchMovies(
   endpoint: Endpoint,
-  languageCode = 'en-US'
+  languageCode = "en-US"
 ): Promise<Movie[]> {
   const url = `${baseUrl}/movie/${endpoint}?api_key=${apiKey}&language=${languageCode}`;
   const response = await fetch(url);
@@ -71,7 +71,7 @@ export async function fetchMovies(
   }
   if (!isMoviesData(data)) {
     console.error(url, data);
-    throw new Error('Unexpected response');
+    throw new Error("Unexpected response");
   }
   return data.results;
 }
@@ -93,12 +93,12 @@ function isMoviesAPIConfiguration(
 ): data is MoviesAPIConfiguration {
   return (
     !!data &&
-    typeof data === 'object' &&
-    'images' in data &&
+    typeof data === "object" &&
+    "images" in data &&
     !!data.images &&
-    typeof data.images === 'object' &&
-    'base_url' in data.images &&
-    typeof data.images.base_url === 'string'
+    typeof data.images === "object" &&
+    "base_url" in data.images &&
+    typeof data.images.base_url === "string"
   );
 }
 
@@ -124,7 +124,7 @@ export async function fetchConfiguration(): Promise<MoviesAPIConfiguration> {
     throw new Error(`${data.status_code}: ${data.status_message}`);
   }
   if (!isMoviesAPIConfiguration(data)) {
-    throw new Error('Unexpected response');
+    throw new Error("Unexpected response");
   }
   return data;
 }
@@ -142,10 +142,10 @@ function isLanguageArray(data: unknown): data is LanguageObject[] {
     data.every(
       (item) =>
         !!item &&
-        typeof item === 'object' &&
-        'english_name' in item &&
-        'iso_639_1' in item &&
-        'name' in item
+        typeof item === "object" &&
+        "english_name" in item &&
+        "iso_639_1" in item &&
+        "name" in item
     )
   );
 }
@@ -169,7 +169,7 @@ export async function fetchLanguageCodes(): Promise<string[]> {
     throw new Error(`${data.status_code}: ${data.status_message}`);
   }
   if (!isLanguageArray(data)) {
-    throw new Error('Unexpected response');
+    throw new Error("Unexpected response");
   }
   return data.map((item) => item.iso_639_1);
 }
